@@ -18,13 +18,13 @@ pipeline {
             }
         }
         
-        // stage ("Build image") {
-        //     steps {
-        //         script {
-        //             docker.build registry
-        //         }
-        //     }
-        // }
+        stage ("Build image") {
+            steps {
+                script {
+                    docker.build registry
+                }
+            }
+        }
         
         // stage ("Push to ECR") {
         //     steps {
