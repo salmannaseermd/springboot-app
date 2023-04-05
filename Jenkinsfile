@@ -28,16 +28,9 @@ pipeline {
         
         stage ("Push to ECR") {
             steps {
-                script {
-                
-                        docker.withRegistry(credentialsId: 'ecr:us-east-1:aws_cred', url: '373595631462.dkr.ecr.us-east-1.amazonaws.com/springboot_ecr') {
-                        sh    "docker push 373595631462.dkr.ecr.us-east-1.amazonaws.com/springboot_ecr:latest"
-                
-            // steps {
-            //     sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 373595631462.dkr.ecr.us-east-1.amazonaws.com"
-            //     sh "docker push 373595631462.dkr.ecr.us-east-1.amazonaws.com/springboot_ecr:latest"
-                
-                     
+            steps {
+                sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 373595631462.dkr.ecr.us-east-1.amazonaws.com"
+                sh "docker push 373595631462.dkr.ecr.us-east-1.amazonaws.com/springboot_ecr:latest"
             }
         
         // stage ("Deploy to K8S") {
@@ -50,6 +43,6 @@ pipeline {
         // }
                     }
             }
-         }
+         
      }
 }
