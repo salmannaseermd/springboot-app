@@ -17,7 +17,9 @@ pipeline {
                 sh "mvn clean install"
             }
         }
-        
+// if you're getting this error => ERROR: permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get "http://%2Fvar%2Frun%2Fdocker.sock/_ping": dial unix /var/run/docker.sock: connect: permission denied
+// then vim /etc/group and add the following line docker:x:123:jenkins
+// the above line is to add jenkins user to docker group
         stage ("Build image") {
             steps {
                 script {
