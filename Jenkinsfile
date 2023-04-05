@@ -53,7 +53,7 @@ pipeline {
       
         stage('remove old docker images from jenkins server'){
             steps{
-                sh "docker rm -v $(docker ps --filter status=exited -q)"
+                
                 sh "docker rmi $(docker images --filter dangling=true -q)"
             }
         }
