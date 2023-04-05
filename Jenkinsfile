@@ -5,7 +5,7 @@ pipeline {
     //     registry = "211223789150.dkr.ecr.us-east-1.amazonaws.com/my-docker-repo"
     // }
     
-    // stages {
+     stages {
     //     stage('Checkout') {
     //         steps {
     //             checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/akannan1087/springboot-app']])
@@ -43,3 +43,4 @@ pipeline {
         //     }
         // }
     }
+}
