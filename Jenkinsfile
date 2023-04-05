@@ -21,7 +21,7 @@ pipeline {
         stage ("Build image") {
             steps {
                 script {
-                    docker.build registry
+                    docker.build registry + ":$BUILD_NUMBER"
                 }
             }
         }
@@ -39,6 +39,7 @@ pipeline {
             steps {
                 sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 373595631462.dkr.ecr.us-east-1.amazonaws.com"
                 sh "docker push 373595631462.dkr.ecr.us-east-1.amazonaws.com/springboot_ecr:latest"
+                sh "docker push 373595631462.dkr.ecr.us-east-1.amazonaws.com/springboot_ecr:$BUILD_NUMBER"
                     
             }
         }
@@ -51,11 +52,17 @@ pipeline {
 
     //   }
       
-        stage('remove old docker images from jenkins server'){
-            steps{
+        // stage('remove old docker images from jenkins server'){
+        //     steps{
                 
-                sh "docker rmi $(docker images --filter dangling=true -q)"
-            }
+        //         sh "docker rmi $(docker images --filter dangling=true -q)"
+        //     }
+        // }
+
+                stage('Remove Unused docker image') {
+          steps{
+            sh "docker rmi $registry:$BUILD_NUMBER"
+          }
         }
 
 
