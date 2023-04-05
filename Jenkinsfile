@@ -33,7 +33,11 @@ pipeline {
 //    sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 373595631462.dkr.ecr.us-east-1.amazonaws.com"
 //    sh "docker push 373595631462.dkr.ecr.us-east-1.amazonaws.com/springboot_ecr:latest" 
         
-        
+        stage('Remove Unused docker image') {
+          steps{
+            sh "docker rmi $registry:$BUILD_NUMBER"
+          }
+        }
         stage ("Push to ECR") {
 
             steps {
@@ -59,11 +63,7 @@ pipeline {
         //     }
         // }
 
-                stage('Remove Unused docker image') {
-          steps{
-            sh "docker rmi $registry:$BUILD_NUMBER"
-          }
-        }
+
 
 
       
